@@ -1,0 +1,897 @@
+{
+  "tripInfo": {
+    "title": "沖繩 6 日遊｜親子＆長輩悠閒包車定案版",
+    "dates": "2026/12/17 (四) – 2026/12/22 (二)",
+    "travelers": {
+      "adults": 6,
+      "toddlers": 1,
+      "toddlerAge": "1歲（含嬰兒推車）",
+      "specialMembers": "長輩同行（重視少走樓梯、動線平緩、適時休整）"
+    },
+    "baseHotel": {
+      "name": "Sakaemachi Rotary Bld.（栄町ロータリービル）",
+      "address": "沖繩縣那霸市安里（單軌安里站步行2分・榮町市場入口）",
+      "advantage": "定點住宿5晚免搬行李，周邊有24h超市與昭和居酒屋",
+      "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha"
+    },
+    "transportPlan": {
+      "charter": "Day 2 (北)、Day 4 (南)、Day 5 (中) 預訂 9 人座 Hiace 包車（配1張汽座，推車直放免折）",
+      "taxi": "Day 1、Day 3、Day 6 市區點對點分搭 2 台計程車（DiDi / Uber 叫車）"
+    },
+    "dailySunset": "17:35（12月中旬沖繩日落時間）"
+  },
+  "reservationChecklist": [
+    {
+      "category": "燒肉預約",
+      "item": "燒肉 琉球的牛 那霸國際通 3 樓",
+      "dateTime": "2026/12/18 (五) 18:45",
+      "bookingCode": "493T6L",
+      "partySize": "6大1小",
+      "status": "已預約確認",
+      "actionUrl": "https://www.tablecheck.com/shops/u-shi-naha/reserve",
+      "notes": "全電梯直達3F，有嬰兒椅，已確認排入北部包車回程當晚"
+    },
+    {
+      "category": "包車預訂",
+      "item": "3 天 9 人座包車（配 1 幼兒汽座）",
+      "dateTime": "12/18 北部 9h、12/20 南部 9h、12/21 中部 10.5h",
+      "bookingCode": "待洽訂",
+      "partySize": "6大1小＋行李推車",
+      "status": "待預訂",
+      "actionUrl": "https://www.google.com/search?q=沖繩+9人座+包車+推薦",
+      "notes": "指定司機停靠美麗海 P7 立體停車場與兒童王國大型電梯入口"
+    },
+    {
+      "category": "景點時段預約",
+      "item": "首里城全新復原正殿入場（Webket）",
+      "dateTime": "2026/12/19 (六) 11:45–13:15 時段",
+      "bookingCode": "行前2個月預約",
+      "partySize": "全體（6歲以下免費）",
+      "status": "待預約",
+      "actionUrl": "https://webket.jp/",
+      "notes": "2026/11/23全新復原開放，成人¥1,000，每時段總量管制"
+    },
+    {
+      "category": "美食預約",
+      "item": "瀨長島 幸福鬆餅（A Happy Pancake）",
+      "dateTime": "2026/12/20 (日) 16:30–17:00",
+      "bookingCode": "用餐前14天開放",
+      "partySize": "6大1小",
+      "status": "待預約",
+      "actionUrl": "https://magia.tokyo/reserve/",
+      "notes": "賞 17:35 夕陽絕景，開放預訂日為 12/06 00:00(日本時間)"
+    },
+    {
+      "category": "數位準備",
+      "item": "手機叫車 App（DiDi 滴滴出行 / Uber）",
+      "dateTime": "出發前完成綁定信用卡",
+      "bookingCode": "-",
+      "partySize": "2台車各指派1位負責人叫車",
+      "status": "出發前準備",
+      "actionUrl": "https://www.uber.com/jp/ja/ride/",
+      "notes": "Day 1 機場接駁、Day 3 來客夢返程、Day 6 返航皆能即叫即到"
+    },
+    {
+      "category": "入境手續",
+      "item": "Visit Japan Web (VJW) 線上申報",
+      "dateTime": "出發前 7 天完成",
+      "bookingCode": "-",
+      "partySize": "每位成人填報＋幼童隨行",
+      "status": "出發前填寫",
+      "actionUrl": "https://services.digital.go.jp/visit-japan-web/",
+      "notes": "生成入境審查與海關申報 QR Code，通關快速通暢"
+    }
+  ],
+  "days": [
+    {
+      "dayNumber": 1,
+      "date": "2026/12/17",
+      "weekday": "四",
+      "theme": "抵達沖繩 ➔ 榮町基地安置 ➔ 國際通漫步阿古豬火鍋",
+      "transport": "航班直飛 ＋ 機場排班計程車 2 台直達飯店（約15分，¥2,000/台）",
+      "summary": "不趕行程，出關直奔飯店歇腳，傍晚平坦好走的國際通暖身漫步。",
+      "timeline": [
+        {
+          "time": "07:30 - 12:25",
+          "name": "高雄小港機場 ✈️ 那霸國際機場 (OKA)",
+          "category": "航班航程",
+          "duration": "1小時55分航程",
+          "shortSummary": "高雄直飛沖繩，降落提領行李與推車",
+          "extraGuide": {
+            "mustEat": [
+              "機上簡易點心或自備幼童小米餅安撫"
+            ],
+            "mustVisit": [
+              "那霸機場 2F 觀景台看飛機起降（備案）"
+            ],
+            "accessibilityTips": [
+              "出關後推車可至行李轉盤旁直接領取",
+              "行李多＋長輩幼童，直接到排班處分搭 2 台計程車最省力"
+            ],
+            "operationalNotice": "出關約 40–50 分鐘，準備好 VJW QR Code 通關更迅速"
+          },
+          "links": [
+            { "name": "那霸機場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Naha+Airport" },
+            { "name": "那霸機場官方網站", "url": "https://www.naha-airport.co.jp/" }
+          ]
+        },
+        {
+          "time": "13:45 - 15:00",
+          "name": "Sakaemachi Rotary Bld.（榮町住宿基地）",
+          "category": "住宿休息",
+          "duration": "1小時15分",
+          "shortSummary": "辦理入住或寄放行李，讓長輩幼童換裝休整",
+          "extraGuide": {
+            "mustEat": [
+              "巷口榮町超市買沖繩香檸水與幼童鮮奶"
+            ],
+            "mustVisit": [
+              "大樓周邊昭和復古街景探訪"
+            ],
+            "accessibilityTips": [
+              "安里站旁步行僅 2 分鐘，路面平整好拉大件行李",
+              "室內先讓長輩上廁所、幫寶寶換尿布喝奶充飽電"
+            ],
+            "operationalNotice": "若未達入住時間可先將全體大行李安全寄存"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        },
+        {
+          "time": "15:15 - 18:00",
+          "name": "那霸國際通 ＆ 第一牧志公設市場",
+          "category": "街區漫步",
+          "duration": "2小時45分",
+          "shortSummary": "全平坦人行道漫步，吃在地冰品與市場巡禮",
+          "extraGuide": {
+            "mustEat": [
+              "Blue Seal 沖繩海鹽黑糖冰淇淋",
+              "Calbee+ 現炸熱騰騰紅芋紫薯條",
+              "第一牧志公設市場厚煎「福助玉子燒」"
+            ],
+            "mustVisit": [
+              "第一牧志公設市場 1F 活海鮮夜光貝水槽",
+              "御菓子御殿紅芋塔現烤產線櫥窗"
+            ],
+            "accessibilityTips": [
+              "國際通雙側人行道極寬敞平緩，推車一路順行",
+              "公設市場新大樓配有無障礙電梯與整潔育嬰室"
+            ],
+            "operationalNotice": "市場營業至 20:00，海鮮攤販約 18:00 陸續收攤"
+          },
+          "links": [
+            { "name": "國際通 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Kokusai+Dori+Naha" },
+            { "name": "第一牧志公設市場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Makishi+Public+Market+Naha" },
+            { "name": "公設市場官方網站", "url": "https://makishi-public-market.jp/" },
+            { "name": "國際通必吃推薦搜尋", "url": "https://www.google.com/search?q=那霸國際通+必吃美食+推薦" }
+          ]
+        },
+        {
+          "time": "18:00 - 20:00",
+          "name": "晚餐：國際通阿古豬涮涮鍋 / 榮町居酒屋",
+          "category": "精緻晚餐",
+          "duration": "2小時",
+          "shortSummary": "阿古豬清湯蔬菜火鍋，暖胃好消化（已調移琉球的牛）",
+          "extraGuide": {
+            "mustEat": [
+              "沖繩頂級阿古豬五花肉與雪花肉片",
+              "島豆腐、青蔥與高湯煮讚岐烏龍麵"
+            ],
+            "mustVisit": [
+              "榮町市場夜晚昭和風燈籠夜景（若長輩想散步）"
+            ],
+            "accessibilityTips": [
+              "白高湯烹煮豆腐蔬菜與麵條，1 歲幼童無負擔",
+              "長輩搭機首日喝熱湯暖胃，舒緩舟車疲勞"
+            ],
+            "operationalNotice": "琉球的牛已移至 Day 2，今晚阿古豬無預約時間壓力"
+          },
+          "links": [
+            { "name": "阿古豬火鍋搜尋 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Agu+Pork+Shabu+Shabu+Kokusai+Dori" },
+            { "name": "榮町市場居酒屋街 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Market+Naha" },
+            { "name": "阿古豬涮涮鍋食記搜尋", "url": "https://www.google.com/search?q=沖繩+阿古豬+涮涮鍋+推薦" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayNumber": 2,
+      "date": "2026/12/18",
+      "weekday": "五",
+      "theme": "北部海岸包車 ➔ 萬座毛 ➔ 古宇利島 ➔ 美麗海水族館 ➔ 琉球的牛燒肉",
+      "transport": "🚐 9 人座包車全日接送（08:00–17:05），推車免折放後車廂",
+      "summary": "包車直攻北部精華！傍晚回飯店休整，準時 18:45 享受預約好的和牛燒肉盛宴。",
+      "timeline": [
+        {
+          "time": "08:00",
+          "name": "Sakaemachi Rotary Bld. 包車出發",
+          "category": "出發啟程",
+          "duration": "車程約50分",
+          "shortSummary": "包車司機飯店門口準時迎接，幼兒車上補眠",
+          "extraGuide": {
+            "mustEat": [
+              "前晚超市預購的麵包或飯糰車上墊胃"
+            ],
+            "mustVisit": [
+              "沿途欣賞西海岸公路碧藍海天"
+            ],
+            "accessibilityTips": [
+              "推車直接立放 9 人座後行李廂，免反覆折疊",
+              "幼兒汽座妥善固定，車程平順安穩"
+            ],
+            "operationalNotice": "提早 10 分鐘在大廳集合，避開早晨市區小塞車"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        },
+        {
+          "time": "08:50 - 09:40",
+          "name": "萬座毛（象鼻岩天然海景步道）",
+          "category": "自然名勝",
+          "duration": "50分鐘",
+          "shortSummary": "新設施全平整環形步道，打卡象鼻珊瑚斷崖",
+          "extraGuide": {
+            "mustEat": [
+              "新大樓 2F 現烤三矢本舖琉球炸甜甜圈"
+            ],
+            "mustVisit": [
+              "萬座毛觀景步道拍象鼻岩與東海漸層藍"
+            ],
+            "accessibilityTips": [
+              "新商場建築設有平穩箱型電梯與無障礙洗手間",
+              "戶外步道皆為寬敞平緩鋪面，推車暢行無阻"
+            ],
+            "operationalNotice": "觀覽門票每人僅 ¥100（現場自動售票機購票）"
+          },
+          "links": [
+            { "name": "萬座毛 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Manzamo+Okinawa" },
+            { "name": "萬座毛官方網站", "url": "https://www.manzamo.jp/" }
+          ]
+        },
+        {
+          "time": "10:35 - 11:45",
+          "name": "古宇利海灘 ＆ 古宇利島（蝦蝦飯 / 心形岩）",
+          "category": "絕景海灘 / 早午餐",
+          "duration": "1小時10分",
+          "shortSummary": "穿過跨海大橋看透明果凍海，外帶超人氣蝦蝦飯",
+          "extraGuide": {
+            "mustEat": [
+              "KOURI SHRIMP 原味蒜蓉奶油大蝦飯",
+              "香濃辣味蒜香蝦拼檸檬切片"
+            ],
+            "mustVisit": [
+              "古宇利大橋南端觀景台遠眺跨海壯觀美景",
+              "古宇利沙灘淺灘拍Tiffany藍清澈海水"
+            ],
+            "accessibilityTips": [
+              "蝦蝦飯新店設有停車場與專用坡道，方便推車點餐",
+              "海灘入口平整，長輩可在岸邊涼亭坐著看海吹風"
+            ],
+            "operationalNotice": "先派代表至蝦蝦飯取餐，全家於車上或海景露台分食最省時"
+          },
+          "links": [
+            { "name": "古宇利海灘 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Kouri+Beach+Okinawa" },
+            { "name": "古宇利蝦蝦飯 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=KOURI+SHRIMP+Okinawa" },
+            { "name": "古宇利蝦蝦飯官方網站", "url": "http://kouri-shrimp.com/" },
+            { "name": "古宇利島觀光資訊網", "url": "https://kourijima.info/" }
+          ]
+        },
+        {
+          "time": "12:15 - 15:30",
+          "name": "海洋博公園・沖繩美麗海水族館",
+          "category": "巨型水族館",
+          "duration": "3小時15分",
+          "shortSummary": "黑潮之海大鯨鯊餵食秀、戶外海豚劇場 Okichan 秀",
+          "extraGuide": {
+            "mustEat": [
+              "Ocean Blue 咖啡廳黑潮大水槽第一排點心布丁"
+            ],
+            "mustVisit": [
+              "黑潮之海巨型壓克力展缸看鯨鯊與鬼蝠魟",
+              "免費戶外海豚劇場（Okichan Theater 精彩跳躍秀）"
+            ],
+            "accessibilityTips": [
+              "務必請司機停「北口 P7 立體停車場」，搭電梯直達水族館入口免爬坡",
+              "館內動線由上向下全斜坡無階梯，推車最友善景點第一名"
+            ],
+            "operationalNotice": "園內全停車場皆免費；未滿6歲幼童免票入場"
+          },
+          "links": [
+            { "name": "美麗海水族館 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Okinawa+Churaumi+Aquarium" },
+            { "name": "美麗海水族館官方網站", "url": "https://churaumi.okinawa/" },
+            { "name": "海豚秀演出時刻表", "url": "https://churaumi.okinawa/program/okichan/" }
+          ]
+        },
+        {
+          "time": "17:05 - 18:15",
+          "name": "回 Sakaemachi Rotary Bld. 飯店小憩",
+          "category": "休整中繼",
+          "duration": "1小時10分",
+          "shortSummary": "長途車程後回房洗把臉、換尿布，充飽電再去吃燒肉",
+          "extraGuide": {
+            "mustEat": [
+              "喝溫開水或沖繩麥茶補水解膩"
+            ],
+            "mustVisit": [
+              "房內安心放鬆休整"
+            ],
+            "accessibilityTips": [
+              "讓長輩躺平歇腿 40 分鐘，消除下肢久坐浮腫",
+              "幼兒更換乾淨尿布與外出服，確保用餐心情愉悅"
+            ],
+            "operationalNotice": "18:25 集合，計程車 5 分鐘或步行 12 分鐘至琉球的牛"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        },
+        {
+          "time": "18:45 - 20:45",
+          "name": "🔥 晚餐：燒肉 琉球的牛 那霸國際通 3 樓",
+          "category": "頂級和牛燒肉",
+          "duration": "2小時",
+          "shortSummary": "【已預約確認・代號 493T6L】6大1小極致縣產和牛",
+          "extraGuide": {
+            "mustEat": [
+              "特選頂級和牛牛小排與厚切極上牛舌",
+              "極致海鮮盛合（大干貝與鮮蝦）",
+              "白飯、清甜玉子蛋花湯（1歲寶寶主食）"
+            ],
+            "mustVisit": [
+              "國際通夜景窗景合照"
+            ],
+            "accessibilityTips": [
+              "大樓設有專用電梯直達 3F，推車直接推入座位旁",
+              "提供幼童安全座椅與專屬兒童餐具，烤無調味肉片給寶寶"
+            ],
+            "operationalNotice": "已預約代號 493T6L，請於 18:40 前準時抵達報到"
+          },
+          "links": [
+            { "name": "琉球的牛 國際通店 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Yakiniku+Ryukyu+no+Ushi+Naha+Kokusaidori" },
+            { "name": "琉球の牛 官方網站", "url": "https://www.u-shi.net/" },
+            { "name": "TableCheck 官方訂位頁面", "url": "https://www.tablecheck.com/shops/u-shi-naha/reserve" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayNumber": 3,
+      "date": "2026/12/19",
+      "weekday": "六",
+      "theme": "波上宮 ➔ 泊港海鮮早午餐 ➔ 首里城新正殿 ➔ 永旺來客夢購物",
+      "transport": "🚕 點對點搭乘計程車 2 台（DiDi / Uber 叫車），車資均攤實惠又免走回頭路",
+      "summary": "兼顧琉球八社巡禮、全新復原首里城正殿、超大購物中心吹冷氣血拚！",
+      "timeline": [
+        {
+          "time": "09:00 - 10:00",
+          "name": "波上宮 ＆ 波之上海灘",
+          "category": "名勝神社 / 海景",
+          "duration": "1小時",
+          "shortSummary": "參拜崖上琉球總鎮守，買小學生書包御守",
+          "extraGuide": {
+            "mustEat": [
+              "神社旁自動販賣機冷熱茶飲"
+            ],
+            "mustVisit": [
+              "波上宮朱紅本殿祈求全家旅途平安",
+              "購買超人氣小巧兒童書包健康御守",
+              "旁邊波之上海灘步道拍照看清澈海水"
+            ],
+            "accessibilityTips": [
+              "面對鳥居右側有平緩車道坡道，推車可避開正門長石階直達廣場",
+              "海灘步道全鋪設水泥平路，推車散步極順暢"
+            ],
+            "operationalNotice": "神社御守販售處 09:00 開門，早晨參拜遊客少最舒服"
+          },
+          "links": [
+            { "name": "波上宮 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Naminoue+Shrine+Naha" },
+            { "name": "波之上海灘 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Naminoue+Beach+Naha" },
+            { "name": "波上宮官方網站", "url": "http://naminouegu.jp/" }
+          ]
+        },
+        {
+          "time": "10:15 - 11:25",
+          "name": "泊港魚市場（泊いゆまち・海鮮早午餐）",
+          "category": "海鮮市場",
+          "duration": "1小時10分",
+          "shortSummary": "室內平坦市場，享用現切生魚片、炙燒大蝦與玉子燒",
+          "extraGuide": {
+            "mustEat": [
+              "現切厚切鮪魚與鮭魚綜合生魚片盒",
+              "焗烤起司大蝦、現烤大干貝、現烤鰻魚",
+              "現做甜香厚煎玉子燒（1歲幼童最愛）"
+            ],
+            "mustVisit": [
+              "長達數十公尺的水產玻璃分切加工展窗"
+            ],
+            "accessibilityTips": [
+              "單一直線走道全平坦無高低差，推車推起來極度順暢",
+              "可將餐點端至鄰近 Tomarin 渡輪大樓寬敞室內座舒適分食"
+            ],
+            "operationalNotice": "早晨 06:00 即開門，10:00 各攤位品項最齊全熱騰騰"
+          },
+          "links": [
+            { "name": "泊港魚市場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Tomari+Iyumachi+Fish+Market" },
+            { "name": "泊港魚市場官方網站", "url": "http://www.tomariiyumachi.com/" },
+            { "name": "泊港市場必吃食記搜尋", "url": "https://www.google.com/search?q=泊港魚市場+必吃+推薦" }
+          ]
+        },
+        {
+          "time": "11:45 - 13:15",
+          "name": "首里城公園・全新復原正殿",
+          "category": "歷史世界遺產",
+          "duration": "1小時30分",
+          "shortSummary": "【2026/11/23全新復原開放入場】朱紅大殿再現光芒",
+          "extraGuide": {
+            "mustEat": [
+              "首里杜館品嚐金楚糕與冷泡香檸汁"
+            ],
+            "mustVisit": [
+              "睽違 7 年復原完成的正殿御差床與雕花",
+              "守禮門與歡會門打卡拍照"
+            ],
+            "accessibilityTips": [
+              "請走首里杜館專用無障礙木棧緩坡與電梯動線",
+              "長輩若體力微弱，可在首里杜館歇坐或彈性直奔來客夢"
+            ],
+            "operationalNotice": "正殿內部需 Webket 預約（門票成人¥1,000，未滿6歲免費）"
+          },
+          "links": [
+            { "name": "首里城公園 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Shurijo+Castle+Okinawa" },
+            { "name": "首里城公園官方網站", "url": "https://oki-park.jp/shurijo/" },
+            { "name": "首里城正殿 Webket 預約網", "url": "https://webket.jp/" }
+          ]
+        },
+        {
+          "time": "13:45 - 18:00",
+          "name": "永旺夢樂城沖繩來客夢 (AEON Mall Rycom)",
+          "category": "旗艦大型購物城",
+          "duration": "4小時",
+          "shortSummary": "巨型水族大水槽、寶可夢中心、美食街吹冷氣用晚餐",
+          "extraGuide": {
+            "mustEat": [
+              "牛舌炭火燒 利久（現烤厚切牛舌套餐）",
+              "無添藏壽司 (Kura Sushi) 迴轉壽司扭蛋",
+              "Bic Camera 旁鮮果手搖與可麗餅甜點"
+            ],
+            "mustVisit": [
+              "1F「來客夢水族館」超巨大圓柱海水魚缸",
+              "1F Pokémon Center 沖繩寶可夢旗艦專賣店",
+              "4F Toys\"R\"Us 玩具反斗城與嬰幼兒大賣場"
+            ],
+            "accessibilityTips": [
+              "沖繩最友善母嬰百貨，服務台免費租借舒適推車",
+              "全室內冷氣充足，各樓層大量沙發長椅供長輩休息"
+            ],
+            "operationalNotice": "商場營業至 22:00，退稅櫃台排隊建議於 17:30 前完成"
+          },
+          "links": [
+            { "name": "永旺來客夢 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=AEON+Mall+Okinawa+Rycom" },
+            { "name": "永旺夢樂城來客夢官方網站", "url": "https://okinawarycom-aeonmall.com/" },
+            { "name": "來客夢樓層導覽", "url": "https://okinawarycom-aeonmall.com/floorguide/" }
+          ]
+        },
+        {
+          "time": "18:30",
+          "name": "回 Sakaemachi Rotary Bld.",
+          "category": "賦歸休息",
+          "duration": "車程約30分",
+          "shortSummary": "叫 2 台計程車滿載戰利品直達住宿，長輩早點就寢",
+          "extraGuide": {
+            "mustEat": [
+              "榮町超市採買季節蜜柑消夜"
+            ],
+            "mustVisit": [
+              "房內安心休整"
+            ],
+            "accessibilityTips": [
+              "商場叫車停於計程車專用上客乘車處，免淋雨吹風",
+              "回到飯店整理戰利品與寶寶明日副食品裝備"
+            ],
+            "operationalNotice": "單程計程車資約 ¥4,000–4,500/台，6大1小分兩台平均實惠"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayNumber": 4,
+      "date": "2026/12/20",
+      "weekday": "日",
+      "theme": "南部包車 ➔ 玉泉洞 ➔ 糸滿魚市場 ➔ DMM水族館/iias/海灘 ➔ 瀨長島夕陽足湯",
+      "transport": "🚐 9 人座包車全日接送（09:00–18:10），不走回頭路",
+      "summary": "南部三景點相連極度順暢！看太鼓秀、吃龍蝦海鮮、賞瀨長島夕陽泡免費足湯。",
+      "timeline": [
+        {
+          "time": "09:00",
+          "name": "Sakaemachi Rotary Bld. 包車出發",
+          "category": "出發啟程",
+          "duration": "車程約30分",
+          "shortSummary": "南部距離近，09:00 悠閒出發免趕早",
+          "extraGuide": {
+            "mustEat": [
+              "超商飯糰與明治鮮奶"
+            ],
+            "mustVisit": [
+              "南城田園風光沿線"
+            ],
+            "accessibilityTips": [
+              "帶妥【嬰兒揹巾】備用（玉泉洞必備）",
+              "推車放車上，下車依長輩狀態決定是否隨行"
+            ],
+            "operationalNotice": "包車司機已排定直達玉泉洞正門"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        },
+        {
+          "time": "09:30 - 11:45",
+          "name": "沖繩世界 文化王國・玉泉洞",
+          "category": "自然奇觀 / 民俗秀",
+          "duration": "2小時15分",
+          "shortSummary": "壯麗地底鐘乳石洞、熱血傳統太鼓舞秀、王國村散步",
+          "extraGuide": {
+            "mustEat": [
+              "園區現榨甘蔗汁與黑糖冰棒"
+            ],
+            "mustVisit": [
+              "天然鐘乳石柱「玉泉洞青泉」奇景",
+              "必看「Super Eisa 傳統太鼓舞秀」（震撼大鼓跳躍）",
+              "琉球傳統紅瓦古民家聚落參觀"
+            ],
+            "accessibilityTips": [
+              "⚠️地底階梯濕滑禁推車，帶 1 歲幼童請務必改用揹巾",
+              "長輩若不便走階梯，建議留地面逛王國村看太鼓秀最輕鬆"
+            ],
+            "operationalNotice": "玉泉洞出口備有向上長電扶梯直通地面王國村"
+          },
+          "links": [
+            { "name": "沖繩世界文化王國 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Okinawa+World" },
+            { "name": "沖繩世界官方網站", "url": "https://www.gyokusendo.co.jp/okinawaworld/" },
+            { "name": "太鼓秀場次時刻表", "url": "https://www.gyokusendo.co.jp/okinawaworld/attraction/eisa/" }
+          ]
+        },
+        {
+          "time": "12:05 - 13:15",
+          "name": "糸滿魚市場 ＆ うまんちゅ農產市場",
+          "category": "海鮮與在地水果市場",
+          "duration": "1小時10分",
+          "shortSummary": "焗烤龍蝦生蠔現選現吃，買當季沖繩草莓甜橘給寶寶",
+          "extraGuide": {
+            "mustEat": [
+              "糸滿魚市場現烤半隻起司焗烤龍蝦、烤生蠔",
+              "超大顆甜蝦刺身盒、蒲燒鰻魚肉串",
+              "隔壁農產所買現採香甜沖繩草莓給 1 歲幼童"
+            ],
+            "mustVisit": [
+              "糸滿市物產直賣所（買島產香檸黑糖伴手禮）"
+            ],
+            "accessibilityTips": [
+              "全區為平整水泥地面無門檻，推車極為順手好推",
+              "設有大型棚架戶外桌椅，分工點餐全家同桌享用"
+            ],
+            "operationalNotice": "農產市場草莓約午後搶手，抵達後先挑選水果"
+          },
+          "links": [
+            { "name": "糸滿魚市場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Itoman+Fish+Market" },
+            { "name": "うまんちゅ農產市場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Umanchu+Market+Itoman" },
+            { "name": "JA 沖繩うまんちゅ市場官網", "url": "https://www.ja-okinawa.or.jp/farmersmarket/itoman/" }
+          ]
+        },
+        {
+          "time": "13:25 - 16:00",
+          "name": "DMM Kariyushi 水族館 ＋ iias 沖繩豐崎 ＋ 美麗 SUN 海灘",
+          "category": "室內新科技水族館 / 海景商場",
+          "duration": "2小時35分",
+          "shortSummary": "三點緊鄰免折返跑，看樹懶企鵝、吹冷氣逛街看海景",
+          "extraGuide": {
+            "mustEat": [
+              "iias 商場內人氣 Yanbaru Gelato 義式冰淇淋"
+            ],
+            "mustVisit": [
+              "DMM 水族館透明水上玻璃步道看鯊魚游腳下",
+              "零距離親近樹懶、大嘴鳥、企鵝與摸海星池",
+              "商場戶外走過步道即抵美麗 SUN 海灘漫步拍海"
+            ],
+            "accessibilityTips": [
+              "水族館位於商場內，全室內電梯連通，嬰兒推車 100% 暢行無阻",
+              "商場設有海景休息沙發椅，長輩隨時坐下放鬆",
+              "長輩若偏好精品採買，可彈性換為 8 分鐘車程的 Outlet"
+            ],
+            "operationalNotice": "水族館可先於官網購買電子 Web 票直接掃碼入館"
+          },
+          "links": [
+            { "name": "DMM水族館 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=DMM+Kariyushi+Aquarium" },
+            { "name": "iias 沖繩豐崎 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=iias+Okinawa+Toyosaki" },
+            { "name": "DMM水族館官方網站", "url": "https://kariyushi-aquarium.com/" },
+            { "name": "iias 沖繩豐崎官網", "url": "https://toyosaki.iias.jp/" },
+            { "name": "備案 ASHIBINAA Outlet 官網", "url": "https://www.ashibinaa.com/" }
+          ]
+        },
+        {
+          "time": "16:10 - 17:45",
+          "name": "瀨長島 Umikaji Terrace（17:35夕陽 ＋ 飛機 ＋ 足湯）",
+          "category": "絕景夕陽 / 甜點名店",
+          "duration": "1小時35分",
+          "shortSummary": "白色地中海階梯看飛機起降，品嚐幸福鬆餅，泡海景足湯",
+          "extraGuide": {
+            "mustEat": [
+              "幸福鬆餅（A Happy Pancake，提早14天官網預訂）",
+              "塔可飯咖啡店 Taco Rice 或香濃義式冰淇淋"
+            ],
+            "mustVisit": [
+              "瀨長島白色地中海露台欣賞 17:35 壯麗落日",
+              "近距離仰望各國客機呼嘯降落跑道",
+              "【長輩推薦】山頂琉球溫泉飯店門口「免費露天海景足湯」"
+            ],
+            "accessibilityTips": [
+              "47STORE 旁設有無障礙昇降坡道，推車可沿斜坡推至中層觀景",
+              "長輩可至山頂邊泡足湯邊賞夕陽，舒緩雙腳最享受"
+            ],
+            "operationalNotice": "12月中旬日落時間為 17:35，17:15 前務必選好觀景位置"
+          },
+          "links": [
+            { "name": "瀨長島 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Senagajima+Umikaji+Terrace" },
+            { "name": "瀨長島官方網站", "url": "https://www.umikajiterrace.com/" },
+            { "name": "幸福鬆餅線上預訂頁面", "url": "https://magia.tokyo/reserve/" }
+          ]
+        },
+        {
+          "time": "18:10",
+          "name": "回 Sakaemachi Rotary Bld.",
+          "category": "賦歸休息",
+          "duration": "車程約25分",
+          "shortSummary": "包車直達飯店門口，晚上於榮町市場享用昭和風味美食",
+          "extraGuide": {
+            "mustEat": [
+              "榮町名物煎餃店、串燒配Orion生啤酒"
+            ],
+            "mustVisit": [
+              "榮町昭和復古市場巷弄散步"
+            ],
+            "accessibilityTips": [
+              "下車即達大廳，長輩推車無須多走一步路",
+              "可外帶煎餃熱食回房間大家舒適放鬆吃"
+            ],
+            "operationalNotice": "南部包車 9 小時順利完成，向司機確認明日出發時間"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayNumber": 5,
+      "date": "2026/12/21",
+      "weekday": "一",
+      "theme": "中部包車 ➔ 兒童王國 ➔ PARCO CITY無敵海景 ➔ 美國村聖誕夕陽",
+      "transport": "🚐 9 人座包車全日接送（09:00–19:35），已刪除重複行程",
+      "summary": "幼兒最愛動物園、媽媽必逛阿卡將、12月美國村聖誕夢幻燈海與日落海灘！",
+      "timeline": [
+        {
+          "time": "09:00",
+          "name": "Sakaemachi Rotary Bld. 包車出發",
+          "category": "出發啟程",
+          "duration": "車程約35分",
+          "shortSummary": "包車直奔沖繩市，行李推車直上免折疊",
+          "extraGuide": {
+            "mustEat": [
+              "車上享用幼童米餅與早餐"
+            ],
+            "mustVisit": [
+              "沿路觀賞沖繩中部美軍基地風貌"
+            ],
+            "accessibilityTips": [
+              "幼童坐妥汽車安全座椅，舒適乘車",
+              "直達動物園門口，完全省去轉車勞累"
+            ],
+            "operationalNotice": "預計 09:35 抵達沖繩兒童王國"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        },
+        {
+          "time": "09:35 - 12:00",
+          "name": "沖繩兒童王國 (沖縄こどもの国)",
+          "category": "親子動物園 / 科學館",
+          "duration": "2小時25分",
+          "shortSummary": "順坡向下看大象長頸鹿水豚，搭大型景觀電梯回大門",
+          "extraGuide": {
+            "mustEat": [
+              "園區小賣部沖繩香檸霜淇淋與造型包子"
+            ],
+            "mustVisit": [
+              "里山迷宮近距離看長頸鹿、亞洲象與可愛水豚",
+              "Wonder Museum 奇幻地下互動兒童體驗館"
+            ],
+            "accessibilityTips": [
+              "園區地勢有高低差，請採「由主門順坡往下參觀」最省力",
+              "回程搭巨型無障礙電梯或小火車回大門，長輩完全免爬坡"
+            ],
+            "operationalNotice": "全票成人僅 ¥500，3歲以下幼童免費入園"
+          },
+          "links": [
+            { "name": "沖繩兒童王國 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Okinawa+Zoo+%26+Museum" },
+            { "name": "沖繩兒童王國官方網站", "url": "https://www.okzm.jp/" }
+          ]
+        },
+        {
+          "time": "12:25 - 15:15",
+          "name": "SAN-A 浦添西海岸 PARCO CITY（已刪除重複サンエー）",
+          "category": "旗艦海景百貨 / 母嬰採買",
+          "duration": "2小時50分",
+          "shortSummary": "270度落地海景美食街午餐，3F 超大阿卡將本舖大採買",
+          "extraGuide": {
+            "mustEat": [
+              "2F 落地無敵海景美食街（一風堂拉麵、沖繩麵、章魚燒）",
+              "敘敘苑頂級燒肉（海景景觀包廂午間超值套餐）",
+              "抹茶名店 Nana's Green Tea 聖代甜點"
+            ],
+            "mustVisit": [
+              "3F「阿卡將本舖」必買 1 歲幼童用品、副食品與童裝",
+              "1F「吉伊卡哇沖繩獅薩專賣店 (Chiikawa)」打卡必買",
+              "Sanrio、橡子共和國龍貓、無印良品沖繩大店"
+            ],
+            "accessibilityTips": [
+              "全室內極致無障礙環境，哺乳室與換尿布台設施頂級齊全",
+              "海景美食街設有面海寬敞軟沙發，長輩坐著看海極舒適"
+            ],
+            "operationalNotice": "已移除原規劃中多餘重複的超市行程，集中 2h50m 逛好逛滿"
+          },
+          "links": [
+            { "name": "PARCO CITY Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=SAN-A+Urasoe+West+Coast+PARCO+CITY" },
+            { "name": "PARCO CITY 官方網站", "url": "https://www.parcocity.jp/" },
+            { "name": "PARCO CITY 樓層指南", "url": "https://www.parcocity.jp/floorguide/" }
+          ]
+        },
+        {
+          "time": "15:40 - 19:00",
+          "name": "🌟 美國村 ＆ 日落海灘（12月聖誕燈海 ＋ 17:35 夕陽）",
+          "category": "主題美式小鎮 / 聖誕夜景 / 晚餐",
+          "duration": "3小時20分",
+          "shortSummary": "海濱步道看 17:35 夕陽，打卡璀璨聖誕燈飾，4大美食任選",
+          "extraGuide": {
+            "mustEat": [
+              "The Calif Kitchen（超美露天海景鬆餅與捲餅）",
+              "グルメ迴轉壽司市場（產地直送鮮甜生魚握壽司）",
+              "Kijimuna（熱騰騰歐姆蛋包塔可飯，幼童最愛）",
+              "豬肉蛋飯糰 (Potama) 經典島產餐肉海苔飯糰"
+            ],
+            "mustVisit": [
+              "日落海灘防波堤漫步欣賞 17:35 東海落日晚霞",
+              "Depot Island 12 月全區夢幻巨型聖誕樹與彩燈步道",
+              "尋找色彩繽紛的 Pokemon 寶可夢彩繪打卡牆",
+              "Christmas Land 聖誕飾品專賣小木屋"
+            ],
+            "accessibilityTips": [
+              "日落海灘人行海堤平坦寬闊，推車散步毫無顛簸",
+              "美國村各館設有無障礙緩坡電梯相連，推車自在穿梭"
+            ],
+            "operationalNotice": "聖誕燈飾每日 17:00 準時點亮，17:35 夕陽後夜景極度浪漫"
+          },
+          "links": [
+            { "name": "美國村 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=American+Village+Okinawa" },
+            { "name": "日落海灘 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sunset+Beach+Chatan" },
+            { "name": "美國村官方網站", "url": "https://www.okinawa-americanvillage.com/" },
+            { "name": "The Calif Kitchen 官網", "url": "http://thecalifkitchen.brot-o.com/" },
+            { "name": "Kijimuna 塔可飯官網", "url": "https://www.omutaco.com/" },
+            { "name": "グルメ迴轉壽司 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Gourmet+Kaitensushi+Chatan" }
+          ]
+        },
+        {
+          "time": "19:35",
+          "name": "回 Sakaemachi Rotary Bld.",
+          "category": "賦歸休息",
+          "duration": "車程約35分",
+          "shortSummary": "包車直達飯店門口，完成中部外圈行程，整理返台大行李",
+          "extraGuide": {
+            "mustEat": [
+              "飯店旁超市購買特價宵夜與熱茶"
+            ],
+            "mustVisit": [
+              "房內安心休整"
+            ],
+            "accessibilityTips": [
+              "直達飯店門口免走夜路，協助長輩與寶寶早點洗漱休息",
+              "今晚將戰利品分類裝箱，推車與隨身包備妥"
+            ],
+            "operationalNotice": "3 天包車行程圓滿結束，司機小費與款項結清"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        }
+      ]
+    },
+    {
+      "dayNumber": 6,
+      "date": "2026/12/22",
+      "weekday": "二",
+      "theme": "悠閒退房 ➔ 那霸機場國內線伴手禮大採買 ➔ 平安返台",
+      "transport": "🚕 飯店門口搭計程車 2 台直達那霸機場（約15分，¥2,000/台） ✈️ 航班返高雄",
+      "summary": "不趕早晨，計程車直送機場出發層，托運完悠閒逛國內線買齊沖繩名產！",
+      "timeline": [
+        {
+          "time": "10:40",
+          "name": "Sakaemachi Rotary Bld. 退房出發",
+          "category": "退房啟程",
+          "duration": "車程約15分",
+          "shortSummary": "睡飽悠閒退房，叫 2 台計程車直送機場 3F 出發大廳",
+          "extraGuide": {
+            "mustEat": [
+              "飯店旁現烤麵包或便利商店早點"
+            ],
+            "mustVisit": [
+              "榮町基地大廳最後合影紀念"
+            ],
+            "accessibilityTips": [
+              "計程車直送出發大廳門口，免扛大箱戰利品上下單軌階梯",
+              "司機協助搬運大件行李，長輩牽幼童安全無虞"
+            ],
+            "operationalNotice": "10:25 透過 DiDi/Uber 叫 2 台計程車直送機場"
+          },
+          "links": [
+            { "name": "住宿位置 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Sakaemachi+Rotary+Building+Naha" }
+          ]
+        },
+        {
+          "time": "11:10 - 14:00",
+          "name": "那霸機場（國際線報到托運 ＆ 國內線2F伴手禮大採買）",
+          "category": "名產採買 / 返台登機",
+          "duration": "2小時50分",
+          "shortSummary": "先托運推車與大行李，走室內連通道大逛國內線 2F",
+          "extraGuide": {
+            "mustEat": [
+              "國內線 2F 空港限定「大東壽司」（醬漬旗魚島壽司便當）",
+              "豬肉蛋飯糰 (Potama 那霸空港店，現做熱騰騰飯糰）",
+              "Fukugiya 年輪蛋糕（黑糖與紅芋現烤厚實年輪）"
+            ],
+            "mustVisit": [
+              "國內線 2F 伴手禮名產街（沖繩最大土產集中地）",
+              "買 Royce' 石垣島黑糖鹽巧克力洋芋片、新垣金楚糕、首里城紀念點心"
+            ],
+            "accessibilityTips": [
+              "託運時指定推車「機邊託運」，一路推至登機口最省力",
+              "2F 室內空調天橋連通兩航廈，平坦好推車，長輩免曬太陽"
+            ],
+            "operationalNotice": "13:20 前過國際線安檢，13:50 抵達登機門登機"
+          },
+          "links": [
+            { "name": "那霸機場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Naha+Airport" },
+            { "name": "那霸機場官方網站", "url": "https://www.naha-airport.co.jp/" },
+            { "name": "那霸機場伴手禮店鋪指南", "url": "https://www.naha-airport.co.jp/zh-hant/spend/shop/" }
+          ]
+        },
+        {
+          "time": "14:55",
+          "name": "抵達高雄小港國際航空站 (KHH)",
+          "category": "平安賦歸",
+          "duration": "航程1小時55分",
+          "shortSummary": "出關領取行李與推車，全家平安返家！",
+          "extraGuide": {
+            "mustEat": [
+              "回家享用採買的沖繩伴手禮美點"
+            ],
+            "mustVisit": [
+              "平安賦歸"
+            ],
+            "accessibilityTips": [
+              "小港機場出關平緩，無障礙設施完善，順利返家"
+            ],
+            "operationalNotice": "圓滿結束 6 大 1 小沖繩 6 日海島悠閒之旅"
+          },
+          "links": [
+            { "name": "高雄國際機場 Google Maps", "url": "https://www.google.com/maps/search/?api=1&query=Kaohsiung+International+Airport" }
+          ]
+        }
+      ]
+    }
+  ]
+}
