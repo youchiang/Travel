@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>沖繩 6 日遊｜親子＆長輩悠閒包車互動手冊 (2026/12/17 - 12/22)</title>
   
-  <!-- Google allowlisted Tailwind CSS -->
+  <!-- Google allowlisted Tailwind CSS with fallback for GitHub Pages -->
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js" onerror="var s=document.createElement('script');s.src='https://cdn.tailwindcss.com';document.head.appendChild(s);"></script>
 
   <!-- Warm Pastel Light Theme (溫暖淡色系：燕麥奶底・蜜桃杏・珊瑚暖橘・鼠尾草綠) -->
@@ -44,6 +44,8 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Helvetica Neue", Arial, sans-serif;
       min-height: 100vh;
       font-size: 14px;
+      background-color: #FDFBF7;
+      color: #3E322B;
     }
     .no-scrollbar::-webkit-scrollbar {
       display: none;
@@ -70,6 +72,20 @@
 
   <!-- Top Warm Sunrise Gradient Accent Strip -->
   <div class="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-300 via-orange-300 to-rose-300 z-50"></div>
+
+  <!-- Floating Toast Notifications Container -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 pointer-events-none flex flex-col gap-2 max-w-sm w-full px-4 sm:px-0"></div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" class="hidden fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 select-none" onclick="closeLightbox(event)">
+    <div class="relative max-w-4xl max-h-[92vh] flex flex-col items-center">
+      <button onclick="closeLightboxDirect()" class="absolute -top-10 right-0 text-white/80 hover:text-white p-1.5 rounded-full bg-white/10 hover:bg-white/20 transition flex items-center gap-1 text-xs">
+        <span>✕ 關閉 (Esc)</span>
+      </button>
+      <img id="lightbox-img" src="" alt="放大檢視" class="max-w-full max-h-[85vh] rounded-xl shadow-2xl object-contain border border-white/10" onclick="event.stopPropagation()" />
+      <div id="lightbox-caption" class="text-white/80 text-xs mt-2 text-center font-medium"></div>
+    </div>
+  </div>
 
   <div class="max-w-4xl mx-auto space-y-4 pt-1">
 
@@ -228,7 +244,7 @@
           id="search-input" 
           placeholder="搜尋景點名稱、必吃美食、伴手禮、推車電梯貼士..." 
           oninput="handleSearch(this.value)"
-          class="w-full pl-9 pr-8 py-2 bg-[var(--content)] border border-[var(--border)] rounded-xl text-xs sm:text-sm text-[var(--foreground)] placeholder-[var(--muted-foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition"
+          class="w-full pl-9 pr-8 py-2 bg-[var(--content)] border border-[var(--border)] rounded-xl text-xs sm:text-sm text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition"
         />
         <button 
           id="search-clear-btn" 
@@ -240,7 +256,7 @@
       </div>
     </div>
 
-    <!-- 4. Tab Panes Container -->
+    <!-- 4. Tab Panes Container (Dynamic Content) -->
     <main id="tab-content-container" class="space-y-4">
       <!-- Generated via JavaScript dynamically from verified JSON data -->
     </main>
@@ -261,6 +277,157 @@
       <p>定案日期：2026/12/17 (四) – 12/22 (二) · 純靜態免帳號 · 支援離線瀏覽與 GitHub Pages</p>
     </footer>
 
+  </div>
+
+  <!-- Charter Bus Management Modal -->
+  <div id="charter-modal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-3 sm:p-5 overflow-y-auto" onclick="closeCharterModal(event)">
+    <div class="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden my-auto transform transition-all" onclick="event.stopPropagation()">
+      
+      <!-- Modal Header -->
+      <div class="p-4 sm:p-5 border-b border-[var(--border)] flex items-center justify-between bg-[var(--content)]">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🚐</span>
+          <div>
+            <h3 class="font-bold text-base sm:text-lg text-[var(--foreground)]">包車資訊與憑證截圖管理</h3>
+            <p class="text-xs text-[var(--muted-foreground)]">離線自動儲存於 IndexedDB，支援多張憑證截圖與同行者匯出同步</p>
+          </div>
+        </div>
+        <button onclick="closeCharterModalDirect()" class="p-2 rounded-xl text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--card)] transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Day Tabs & Sync Button -->
+      <div class="px-4 sm:px-5 pt-3 pb-2 border-b border-[var(--border)] flex flex-wrap items-center justify-between gap-2 bg-[var(--card)]">
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5" id="charter-modal-tabs">
+          <button onclick="switchCharterModalTab('day2')" id="charter-tab-day2" class="charter-modal-tab px-3 py-1.5 rounded-xl text-xs font-bold transition">
+            Day 2 (12/18 北部)
+          </button>
+          <button onclick="switchCharterModalTab('day4')" id="charter-tab-day4" class="charter-modal-tab px-3 py-1.5 rounded-xl text-xs font-bold transition">
+            Day 4 (12/20 南部)
+          </button>
+          <button onclick="switchCharterModalTab('day5')" id="charter-tab-day5" class="charter-modal-tab px-3 py-1.5 rounded-xl text-xs font-bold transition">
+            Day 5 (12/21 中部)
+          </button>
+          <button onclick="switchCharterModalTab('general')" id="charter-tab-general" class="charter-modal-tab px-3 py-1.5 rounded-xl text-xs font-bold transition">
+            市區/計程車備忘
+          </button>
+        </div>
+
+        <!-- Sync to other days button -->
+        <button onclick="syncCharterBasicInfoToAllDays()" class="text-xs font-medium px-2.5 py-1 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] hover:bg-[var(--secondary)] flex items-center gap-1 transition" title="複製目前填寫的車行平台、司機資訊與車牌至另外兩天包車">
+          📋 同步基本司機資訊至另2天
+        </button>
+      </div>
+
+      <!-- Modal Body Form -->
+      <div class="p-4 sm:p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+        
+        <!-- Day Badge & Route Notice -->
+        <div class="bg-[var(--content)] border border-[var(--border)] p-3 rounded-xl flex items-center justify-between text-xs">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span id="charter-current-day-badge" class="font-bold px-2 py-0.5 rounded-md bg-[var(--primary)] text-[var(--primary-foreground)]">D2 北部包車</span>
+            <span id="charter-current-day-route" class="text-[var(--muted-foreground)]">萬座毛 ➔ 古宇利島 ➔ 美麗海水族館（約 9 小時）</span>
+          </div>
+          <span class="text-[var(--primary)] font-semibold text-[11px] whitespace-nowrap">9人座 Hiace · 汽座x1</span>
+        </div>
+
+        <!-- Inputs Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+          
+          <!-- Platform / Company -->
+          <div>
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">🏢 包車平台／車行名稱</label>
+            <input type="text" id="charter-input-platform" placeholder="例：KKday / Klook / 在地車行" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Order ID -->
+          <div>
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">🔖 訂單編號 / 預約代號</label>
+            <input type="text" id="charter-input-orderId" placeholder="例：#KK20261218001" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Driver Name -->
+          <div>
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">👨‍✈️ 司機姓名 / 稱呼</label>
+            <input type="text" id="charter-input-driverName" placeholder="例：陳司機 / 山本先生" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Driver Contact -->
+          <div>
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">📞 司機聯絡方式（電話 / LINE / WhatsApp）</label>
+            <input type="text" id="charter-input-driverContact" placeholder="例：090-1234-5678 / LINE ID: oki_driver" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Car Model & Plate -->
+          <div>
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">🚗 車型與車牌號碼</label>
+            <input type="text" id="charter-input-carInfo" placeholder="例：白色 Toyota Hiace 9人座 · 沖繩 500 あ 12-34" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Meeting Time -->
+          <div>
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">🕘 集合出發時間</label>
+            <input type="text" id="charter-input-meetingTime" placeholder="例：08:00（提早10分於大廳等候）" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Meeting Place -->
+          <div class="sm:col-span-2">
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">📍 集合與上車地點</label>
+            <input type="text" id="charter-input-meetingPlace" placeholder="例：Sakaemachi Rotary Bld. 飯店正門口（安里站旁）" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition" />
+          </div>
+
+          <!-- Notes -->
+          <div class="sm:col-span-2">
+            <label class="block font-semibold mb-1 text-[var(--foreground)]">📝 費用尾款、幼兒汽座與行程特別備註</label>
+            <textarea id="charter-input-notes" rows="2" placeholder="例：已付訂金，當日現場付尾款 ¥45,000 日幣現金；確認配備 1 張幼兒汽座；推車直立放後車廂免折疊；停靠美麗海 P7 立體停車場。" class="w-full px-3 py-2 rounded-xl bg-[var(--content)] border border-[var(--border)] text-[var(--foreground)] placeholder-[var(--placeholder)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] transition"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Screenshots Section -->
+        <div class="pt-3 border-t border-[var(--border)] space-y-3">
+          <div class="flex items-center justify-between">
+            <div>
+              <span class="font-bold text-xs sm:text-sm text-[var(--foreground)]">📸 憑證截圖留存（支援多張・自動輕量壓縮）</span>
+              <span id="charter-image-count" class="text-xs text-[var(--muted-foreground)] ml-1">（0 張截圖）</span>
+            </div>
+            
+            <label class="touch-btn cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--secondary)] text-[var(--secondary-foreground)] text-xs font-semibold hover:brightness-95 transition">
+              <span>➕ 選擇圖片上傳</span>
+              <input type="file" id="charter-file-input" accept="image/*" multiple class="hidden" onchange="handleImageFileSelect(this)" />
+            </label>
+          </div>
+
+          <!-- Paste & Drag Drop Zone -->
+          <div id="charter-drop-zone" class="border-2 border-dashed border-[var(--border)] hover:border-[var(--primary)] rounded-xl p-3 text-center text-xs text-[var(--muted-foreground)] bg-[var(--content)] transition cursor-pointer" onclick="document.getElementById('charter-file-input').click()">
+            💡 可直接按 <kbd class="px-1.5 py-0.5 rounded bg-[var(--card)] border border-[var(--border)] font-mono text-[11px] text-[var(--foreground)]">Ctrl + V</kbd> 貼上剪貼簿截圖，或將圖片拖曳至此處！
+          </div>
+
+          <!-- Grid of Images -->
+          <div id="charter-images-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 sm:p-5 border-t border-[var(--border)] flex items-center justify-between bg-[var(--content)]">
+        <div class="text-[11px] text-[var(--muted-foreground)] hidden sm:block">
+          💡 提示：儲存後每日行程頂部與行前檢核皆會即時更新摘要！
+        </div>
+        <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+          <button onclick="closeCharterModalDirect()" class="touch-btn px-4 py-2 rounded-xl border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] text-xs font-semibold hover:bg-[var(--secondary)] transition">
+            關閉
+          </button>
+          <button onclick="saveCurrentCharterModalData()" class="touch-btn px-5 py-2 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] text-xs sm:text-sm font-bold shadow-md hover:brightness-95 flex items-center gap-1.5 transition">
+            💾 儲存包車資訊與截圖
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <!-- Raw Verified Itinerary Data Embedded -->
@@ -1169,19 +1336,176 @@
   <script>
     let currentTab = 'day1';
     let searchQuery = '';
+    let currentCharterModalDay = 'day2';
+
+    // Global Charter Data State (defaults)
+    let charterStore = {
+      day2: {
+        platform: '',
+        orderId: '',
+        driverName: '',
+        driverContact: '',
+        carInfo: 'Toyota Hiace 9人座',
+        meetingTime: '08:00',
+        meetingPlace: 'Sakaemachi Rotary Bld. 飯店門口',
+        notes: '北部9h包車：配1張幼兒汽座；推車直放後車廂免折；司機停靠美麗海 P7 立體停車場',
+        images: []
+      },
+      day4: {
+        platform: '',
+        orderId: '',
+        driverName: '',
+        driverContact: '',
+        carInfo: 'Toyota Hiace 9人座',
+        meetingTime: '09:00',
+        meetingPlace: 'Sakaemachi Rotary Bld. 飯店門口',
+        notes: '南部9h包車：玉泉洞 ➔ 糸滿 ➔ DMM/iias ➔ 瀨長島；17:35 日落前抵達瀨長島',
+        images: []
+      },
+      day5: {
+        platform: '',
+        orderId: '',
+        driverName: '',
+        driverContact: '',
+        carInfo: 'Toyota Hiace 9人座',
+        meetingTime: '09:00',
+        meetingPlace: 'Sakaemachi Rotary Bld. 飯店門口',
+        notes: '中部10.5h包車：兒童王國 ➔ PARCO CITY ➔ 美國村聖誕夕陽；最後一天包車結清小費',
+        images: []
+      },
+      general: {
+        platform: '市區計程車 (DiDi / Uber)',
+        orderId: '',
+        driverName: '',
+        driverContact: '',
+        carInfo: '一般計程車 2 台',
+        meetingTime: '依行程彈性叫車',
+        meetingPlace: '飯店門口 / 景點乘車處',
+        notes: 'D1 機場接駁、D3 來客夢購物返程、D6 機場返航；分搭 2 台計程車約 ¥2,000/台',
+        images: []
+      }
+    };
+
+    let checklistLastSavedAt = null;
+
+    // Mini IndexedDB wrapper for large image screenshot storage
+    const TravelDB = {
+      dbName: 'OkinawaTravelDB_2026',
+      storeName: 'charter_store',
+      version: 1,
+
+      open() {
+        return new Promise((resolve) => {
+          if (!window.indexedDB) return resolve(null);
+          try {
+            const req = indexedDB.open(this.dbName, this.version);
+            req.onupgradeneeded = (e) => {
+              const db = e.target.result;
+              if (!db.objectStoreNames.contains(this.storeName)) {
+                db.createObjectStore(this.storeName, { keyPath: 'key' });
+              }
+            };
+            req.onsuccess = (e) => resolve(e.target.result);
+            req.onerror = () => resolve(null);
+          } catch (e) {
+            resolve(null);
+          }
+        });
+      },
+
+      async get(key) {
+        try {
+          const db = await this.open();
+          if (!db) return null;
+          return new Promise((resolve) => {
+            const tx = db.transaction(this.storeName, 'readonly');
+            const req = tx.objectStore(this.storeName).get(key);
+            req.onsuccess = () => resolve(req.result ? req.result.val : null);
+            req.onerror = () => resolve(null);
+          });
+        } catch (e) {
+          return null;
+        }
+      },
+
+      async set(key, val) {
+        try {
+          const db = await this.open();
+          if (!db) return false;
+          return new Promise((resolve) => {
+            const tx = db.transaction(this.storeName, 'readwrite');
+            tx.objectStore(this.storeName).put({ key, val, updatedAt: new Date().toISOString() });
+            tx.oncomplete = () => resolve(true);
+            tx.onerror = () => resolve(false);
+          });
+        } catch (e) {
+          return false;
+        }
+      }
+    };
 
     // Initialize Application
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       // Check URL Hash for direct day linking (e.g. #day2, #checklist)
       const hash = window.location.hash.replace('#', '');
       if (hash && ['day1', 'day2', 'day3', 'day4', 'day5', 'day6', 'all', 'checklist'].includes(hash)) {
         currentTab = hash;
       }
 
+      await initDataPersistence();
       renderCurrentTab();
       setupScrollListener();
-      loadChecklistStates();
+      setupPasteListener();
+      setupDragDropListener();
     });
+
+    // Initialize persistence from IndexedDB & LocalStorage
+    async function initDataPersistence() {
+      // 1. Load LocalStorage text fallback
+      try {
+        const savedText = localStorage.getItem('okinawa_charter_text_2026');
+        if (savedText) {
+          const parsed = JSON.parse(savedText);
+          charterStore = { ...charterStore, ...parsed };
+        }
+        checklistLastSavedAt = localStorage.getItem('okinawa_checklist_saved_at_2026');
+      } catch (e) {}
+
+      // 2. Load IndexedDB full data with images
+      try {
+        const idbCharter = await TravelDB.get('charter_data');
+        if (idbCharter) {
+          charterStore = { ...charterStore, ...idbCharter };
+        }
+      } catch (e) {}
+    }
+
+    // Toast notification function
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+      const toast = document.createElement('div');
+      toast.className = "pointer-events-auto flex items-center gap-2.5 p-3.5 rounded-2xl bg-[#FFFDF9] border border-[#EAE0D2] shadow-xl text-xs sm:text-sm font-medium text-[#3E322B] transition-all duration-300 transform translate-y-[-10px] opacity-0";
+      
+      let icon = '✅';
+      if (type === 'error') icon = '❌';
+      if (type === 'info') icon = 'ℹ️';
+
+      toast.innerHTML = `
+        <span class="text-base">${icon}</span>
+        <span class="flex-1 leading-snug">${message}</span>
+      `;
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => {
+        toast.classList.remove('translate-y-[-10px]', 'opacity-0');
+      });
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-[-10px]');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
 
     // Setup window scroll listener for back to top button
     function setupScrollListener() {
@@ -1262,7 +1586,7 @@
       }
     }
 
-    // Render Day Section containing timeline cards
+    // Render Day Section containing timeline cards & charter banner
     function renderDaySection(dayData, isOverview) {
       let html = '';
       if (isOverview) {
@@ -1279,6 +1603,9 @@
         `;
       }
 
+      // Entrance B: Charter Transport Banner on D2, D4, D5 (or Taxi on D1, D3, D6)
+      html += renderDayCharterBanner(dayData.dayNumber, isOverview);
+
       html += `<div class="space-y-3.5">`;
       dayData.timeline.forEach((stop, index) => {
         html += renderStopCard(dayData.dayNumber, stop, index, dayData.timeline);
@@ -1288,7 +1615,102 @@
       return html;
     }
 
-    // Render Individual Attraction Card (Minimalist Header + Collapsible Accordion)
+    // Entrance B: Render day charter summary banner
+    function renderDayCharterBanner(dayNum, isOverview) {
+      const isCharterDay = (dayNum === 2 || dayNum === 4 || dayNum === 5);
+      const key = isCharterDay ? `day${dayNum}` : 'general';
+      const data = charterStore[key] || {};
+      const imgCount = (data.images || []).length;
+      const hasCustomInfo = data.driverName || data.driverContact || data.platform || imgCount > 0;
+
+      if (isCharterDay) {
+        return `
+          <div class="mb-4 bg-[#FFFDF9] border border-[#EAE0D2] rounded-2xl p-3.5 sm:p-4 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 pb-2.5 border-b border-[#EAE0D2]">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#F9E8DC] text-[#A84E32] flex items-center gap-1">
+                  🚐 Day ${dayNum} 9人座專屬包車資訊
+                </span>
+                ${hasCustomInfo ? `
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-[#EBF4ED] text-[#3D6E47]">
+                    已留存司機資訊
+                  </span>
+                ` : `
+                  <span class="text-xs text-[#7D6D61]">尚未填寫司機資訊與憑證</span>
+                `}
+                ${imgCount > 0 ? `
+                  <span class="text-xs font-mono font-semibold text-[var(--primary)] flex items-center gap-0.5">
+                    📸 ${imgCount} 張截圖
+                  </span>
+                ` : ''}
+              </div>
+
+              <button onclick="openCharterModal('day${dayNum}')" class="touch-btn text-xs font-bold px-3 py-1.5 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm hover:brightness-95 flex items-center gap-1 self-start sm:self-auto transition">
+                <span>${hasCustomInfo ? '✏️ 查看／編輯包車與截圖' : '➕ 填寫當日包車與截圖'}</span>
+              </button>
+            </div>
+
+            <!-- Detail Summary row -->
+            <div class="pt-2.5 text-xs text-[var(--foreground)] space-y-1">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 text-xs">
+                <div>
+                  <span class="text-[var(--muted-foreground)]">🏢 車行/平台：</span>
+                  <span class="font-semibold">${data.platform || '尚未填寫'}</span>
+                  ${data.orderId ? `<span class="text-[var(--muted-foreground)] font-mono">(${data.orderId})</span>` : ''}
+                </div>
+                <div>
+                  <span class="text-[var(--muted-foreground)]">👨‍✈️ 司機：</span>
+                  <span class="font-semibold">${data.driverName || '行前由車行指派'}</span>
+                  ${data.driverContact ? `<a href="tel:${data.driverContact}" class="ml-1 text-[var(--primary)] underline font-mono">${data.driverContact}</a>` : ''}
+                </div>
+                <div>
+                  <span class="text-[var(--muted-foreground)]">🚗 車型車牌：</span>
+                  <span class="font-semibold">${data.carInfo || 'Toyota Hiace 9人座'}</span>
+                </div>
+                <div>
+                  <span class="text-[var(--muted-foreground)]">🕘 集合：</span>
+                  <span class="font-semibold">${data.meetingTime || '08:00/09:00'}</span>
+                </div>
+              </div>
+
+              ${data.notes ? `
+                <div class="pt-1 text-[11px] text-[var(--muted-foreground)] line-clamp-2">
+                  <span class="font-semibold text-[var(--foreground)]">備註：</span>${data.notes}
+                </div>
+              ` : ''}
+
+              <!-- Thumbnails preview if any -->
+              ${imgCount > 0 ? `
+                <div class="pt-2 flex items-center gap-2 overflow-x-auto no-scrollbar">
+                  <span class="text-[11px] text-[var(--muted-foreground)] whitespace-nowrap">憑證截圖：</span>
+                  ${data.images.map(img => `
+                    <img src="${img.dataUrl}" alt="${img.name}" onclick="openLightbox('${img.dataUrl}', '${data.platform || '包車憑證'} - ${img.name}')" class="w-10 h-10 rounded-lg object-cover border border-[var(--border)] cursor-pointer hover:opacity-80 transition flex-shrink-0" title="點擊放大檢視" />
+                  `).join('')}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      } else if (!isOverview) {
+        // Light bar for Day 1, 3, 6
+        return `
+          <div class="mb-3 bg-[var(--content)] border border-[var(--border)] rounded-xl px-3.5 py-2 flex items-center justify-between text-xs text-[var(--muted-foreground)]">
+            <div class="flex items-center gap-1.5">
+              <span>🚕 本日交通：市區計程車接駁 (DiDi / Uber)</span>
+              ${(charterStore.general.images || []).length > 0 ? `
+                <span class="text-[var(--primary)] font-semibold font-mono">（📸 ${charterStore.general.images.length} 張交通憑證）</span>
+              ` : ''}
+            </div>
+            <button onclick="openCharterModal('general')" class="touch-btn text-xs font-semibold px-2.5 py-1 rounded-lg border border-[var(--border)] bg-[var(--card)] text-[var(--foreground)] hover:bg-[var(--secondary)] transition">
+              📝 交通備忘＆截圖
+            </button>
+          </div>
+        `;
+      }
+      return '';
+    }
+
+    // Render Individual Attraction Card
     function renderStopCard(dayNumber, stop, index, dayTimeline) {
       const cardId = `stop-${dayNumber}-${index}`;
       const gmapsLink = (stop.links && stop.links.find(l => l.url.includes('google.com/maps') || l.name.includes('Google Maps'))) || (stop.links && stop.links[0]);
@@ -1325,7 +1747,7 @@
             </div>
 
             ${gmapsLink ? `
-              <a href="${gmapsLink.url}" target="_blank" rel="noopener noreferrer" class="touch-btn text-xs font-semibold px-3 py-1.5 rounded-xl bg-[#D47254] hover:bg-[#BF5E41] text-white flex items-center gap-1 shadow-sm transition active:scale-95 flex-shrink-0" title="在 Google Maps 中開啟定位導航">
+              <a href="${gmapsLink.url}" target="_blank" rel="noopener noreferrer" class="touch-btn text-xs font-semibold px-3 py-1.5 rounded-xl bg-[var(--primary)] text-white flex items-center gap-1 shadow-sm transition active:scale-95 flex-shrink-0" title="在 Google Maps 中開啟定位導航">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 📍 導航
               </a>
@@ -1370,14 +1792,14 @@
               
               <!-- 1. Must Eat (必吃美食) -->
               ${stop.extraGuide.mustEat && stop.extraGuide.mustEat.length > 0 ? `
-                <div class="bg-[#FFF8EE] border-l-4 border-[#E59A4B] p-3 rounded-r-xl">
-                  <div class="font-bold text-xs sm:text-sm text-[#9C5B16] flex items-center gap-1.5 mb-1.5">
+                <div class="bg-[#FFF8EE] border-l-4 border-[#D97706] p-3 rounded-r-xl">
+                  <div class="font-bold text-xs sm:text-sm text-[#92400E] flex items-center gap-1.5 mb-1.5">
                     🍴 必吃推薦 / 美食清單
                   </div>
                   <ul class="space-y-1 text-xs sm:text-sm text-[var(--foreground)]">
                     ${stop.extraGuide.mustEat.map(item => `
                       <li class="flex items-start gap-1.5">
-                        <span class="text-[#E59A4B] font-bold">•</span>
+                        <span class="text-[#D97706] font-bold">•</span>
                         <span>${item}</span>
                       </li>
                     `).join('')}
@@ -1387,14 +1809,14 @@
 
               <!-- 2. Must Visit (必去亮點) -->
               ${stop.extraGuide.mustVisit && stop.extraGuide.mustVisit.length > 0 ? `
-                <div class="bg-[#FDF3EE] border-l-4 border-[#D97757] p-3 rounded-r-xl">
-                  <div class="font-bold text-xs sm:text-sm text-[#9E4528] flex items-center gap-1.5 mb-1.5">
+                <div class="bg-[#F0F7FF] border-l-4 border-[#0284C7] p-3 rounded-r-xl">
+                  <div class="font-bold text-xs sm:text-sm text-[#075985] flex items-center gap-1.5 mb-1.5">
                     🌟 必去亮點 / 必拍景致
                   </div>
                   <ul class="space-y-1 text-xs sm:text-sm text-[var(--foreground)]">
                     ${stop.extraGuide.mustVisit.map(item => `
                       <li class="flex items-start gap-1.5">
-                        <span class="text-[#D97757] font-bold">•</span>
+                        <span class="text-[#0284C7] font-bold">•</span>
                         <span>${item}</span>
                       </li>
                     `).join('')}
@@ -1404,14 +1826,14 @@
 
               <!-- 3. Accessibility Tips (推車＆長輩無障礙貼士) -->
               ${stop.extraGuide.accessibilityTips && stop.extraGuide.accessibilityTips.length > 0 ? `
-                <div class="bg-[#F3F8F2] border-l-4 border-[#6B9E78] p-3 rounded-r-xl">
-                  <div class="font-bold text-xs sm:text-sm text-[#3B6947] flex items-center gap-1.5 mb-1.5">
+                <div class="bg-[#F2F8F4] border-l-4 border-[#059669] p-3 rounded-r-xl">
+                  <div class="font-bold text-xs sm:text-sm text-[#065F46] flex items-center gap-1.5 mb-1.5">
                     👶👵 幼兒推車＆長輩貼士（無障礙避坑指南）
                   </div>
                   <ul class="space-y-1 text-xs sm:text-sm text-[var(--foreground)]">
                     ${stop.extraGuide.accessibilityTips.map(item => `
                       <li class="flex items-start gap-1.5">
-                        <span class="text-[#6B9E78] font-bold">•</span>
+                        <span class="text-[#059669] font-bold">•</span>
                         <span>${item}</span>
                       </li>
                     `).join('')}
@@ -1422,7 +1844,7 @@
               <!-- 4. Operational Notice (現場注意與票務須知) -->
               ${stop.extraGuide.operationalNotice ? `
                 <div class="bg-[var(--content)] border border-[var(--border)] p-3 rounded-xl text-xs sm:text-sm text-[var(--foreground)] flex items-start gap-2">
-                  <span class="text-amber-500 text-sm">⚠️</span>
+                  <span class="text-amber-600 text-sm">⚠️</span>
                   <div>
                     <span class="font-semibold text-[var(--foreground)]">營運與現場提醒：</span>
                     <span class="text-[var(--muted-foreground)]">${stop.extraGuide.operationalNotice}</span>
@@ -1529,7 +1951,6 @@
           card.style.display = 'block';
           matches++;
           if (query) {
-            // Auto expand matched cards so the traveler sees what matched
             const cardId = card.getAttribute('data-card-id');
             toggleCardGuide(cardId, true);
           }
@@ -1539,70 +1960,112 @@
       });
     }
 
-    // Render Checklist View
+    // Render Checklist View with enhanced save, backup, and charter link
     function renderChecklistView() {
+      const savedTimeText = checklistLastSavedAt ? `最後儲存時間：${checklistLastSavedAt}` : '尚未手動存檔（勾選會即時暫存）';
+
       return `
         <div class="space-y-4">
-          <!-- Progress Card -->
-          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 sm:p-5 shadow-sm">
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs sm:text-sm font-bold text-[var(--foreground)]">✅ 行前準備與預約檢核進度</span>
+          <!-- Top Progress & Unified Backup Action Card -->
+          <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 sm:p-5 shadow-sm space-y-3">
+            <div class="flex items-center justify-between gap-2">
+              <div>
+                <span class="text-xs sm:text-sm font-bold text-[var(--foreground)]">✅ 行前準備與預約檢核進度</span>
+                <div id="checklist-last-saved" class="text-[11px] text-[var(--muted-foreground)] mt-0.5">${savedTimeText}</div>
+              </div>
               <span id="checklist-progress-text" class="text-xs font-mono font-bold text-[var(--primary)]">0 / 12 完成 (0%)</span>
             </div>
+            
             <div class="w-full bg-[var(--content)] h-2.5 rounded-full overflow-hidden border border-[var(--border)]">
-              <div id="checklist-progress-bar" class="bg-emerald-500 h-full w-0 transition-all duration-300"></div>
+              <div id="checklist-progress-bar" class="bg-[#4C7A58] h-full w-0 transition-all duration-300"></div>
             </div>
-            <div class="flex items-center justify-end gap-2 mt-3">
-              <button onclick="setAllChecklist(true)" class="text-xs font-semibold px-2.5 py-1 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] hover:bg-[var(--secondary)]">
-                全部標記完成
+
+            <!-- Action Bar: Save / Export / Import / Reset -->
+            <div class="pt-2 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-2 text-xs">
+              
+              <!-- Primary Save Button -->
+              <button onclick="saveAllChecklistAndCharterData(true)" class="touch-btn font-bold px-3.5 py-1.5 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm hover:brightness-95 flex items-center gap-1.5 transition">
+                💾 儲存所有檢核與包車資料
               </button>
-              <button onclick="setAllChecklist(false)" class="text-xs font-semibold px-2.5 py-1 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] hover:text-red-500">
-                全部重設
-              </button>
+
+              <!-- Backup & Share Buttons -->
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <button onclick="exportAllDataJson()" class="touch-btn font-semibold px-2.5 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] hover:bg-[var(--secondary)] flex items-center gap-1 transition" title="匯出完整設定、勾選進度與包車截圖為 .json 檔">
+                  📤 匯出備份 (.json)
+                </button>
+                
+                <label class="touch-btn cursor-pointer font-semibold px-2.5 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] hover:bg-[var(--secondary)] flex items-center gap-1 transition" title="從同行家人或電腦匯入 .json 備份檔">
+                  📥 匯入同步檔
+                  <input type="file" id="import-json-input" accept=".json" class="hidden" onchange="handleImportJson(this)" />
+                </label>
+
+                <button onclick="setAllChecklist(true)" class="touch-btn font-semibold px-2 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] hover:text-[var(--foreground)]">
+                  全選
+                </button>
+                <button onclick="setAllChecklist(false)" class="touch-btn font-semibold px-2 py-1.5 rounded-lg border border-[var(--border)] bg-[var(--content)] text-[var(--muted-foreground)] hover:text-red-500">
+                  重設
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Group 1: 🚨 重要預約與管制項目 -->
+          <!-- Group 1: 🚨 重要預約與管制項目 (含包車專屬連動入口) -->
           <div class="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-4 sm:p-5 shadow-sm">
             <h3 class="text-sm sm:text-base font-bold text-[var(--foreground)] mb-3 flex items-center gap-2">
               🚨 重大預約確認與時段管制（務必確認）
             </h3>
             <div class="space-y-2.5">
-              ${ITINERARY_DATA.reservationChecklist.map((item, idx) => `
-                <div class="checklist-item p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] transition flex items-start gap-3" id="item-box-res-${idx}">
-                  <input 
-                    type="checkbox" 
-                    id="cb-res-${idx}" 
-                    data-key="res-${idx}" 
-                    onchange="handleChecklistChange(this)"
-                    class="checklist-checkbox mt-1 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
-                  />
-                  <div class="flex-1 space-y-1">
-                    <div class="flex items-center justify-between gap-2 flex-wrap">
-                      <span class="font-bold text-xs sm:text-sm text-[var(--foreground)]">${item.item}</span>
-                      <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${item.status === '已預約確認' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-amber-500/10 text-amber-600 dark:text-amber-400'}">
-                        ${item.status}
-                      </span>
-                    </div>
-                    <div class="text-xs text-[var(--muted-foreground)]">
-                      <span>預訂時間/人數：${item.dateTime} · ${item.partySize}</span>
-                    </div>
-                    ${item.bookingCode !== '-' ? `
-                      <div class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
-                        預約代號：${item.bookingCode}
+              ${ITINERARY_DATA.reservationChecklist.map((item, idx) => {
+                const isCharterItem = item.category === '包車預訂' || item.item.includes('包車');
+                return `
+                  <div class="checklist-item p-3 rounded-xl border border-[var(--border)] bg-[var(--content)] transition flex flex-col gap-2" id="item-box-res-${idx}">
+                    <div class="flex items-start gap-3">
+                      <input 
+                        type="checkbox" 
+                        id="cb-res-${idx}" 
+                        data-key="res-${idx}" 
+                        data-is-charter="${isCharterItem ? 'true' : 'false'}"
+                        onchange="handleChecklistChange(this)"
+                        class="checklist-checkbox mt-1 w-4 h-4 rounded text-[#4C7A58] focus:ring-[#4C7A58] cursor-pointer"
+                      />
+                      <div class="flex-1 space-y-1">
+                        <div class="flex items-center justify-between gap-2 flex-wrap">
+                          <div class="flex items-center gap-1.5">
+                            <span class="font-bold text-xs sm:text-sm text-[var(--foreground)]">${item.item}</span>
+                            ${isCharterItem ? `
+                              <button onclick="openCharterModal('day2')" class="touch-btn text-[11px] font-bold px-2 py-0.5 rounded-md bg-[var(--primary)] text-white hover:brightness-95 transition">
+                                🚐 維護包車資訊＆截圖
+                              </button>
+                            ` : ''}
+                          </div>
+                          <span class="text-xs font-semibold px-2 py-0.5 rounded-full ${item.status === '已預約確認' ? 'bg-[#EBF4ED] text-[#3D6E47]' : 'bg-[#FFF8EE] text-[#9C5B16] border border-[#E8C9A3]'}">
+                            ${item.status}
+                          </span>
+                        </div>
+                        <div class="text-xs text-[var(--muted-foreground)]">
+                          <span>預訂時間/人數：${item.dateTime} · ${item.partySize}</span>
+                        </div>
+                        ${item.bookingCode !== '-' ? `
+                          <div class="text-xs font-mono font-bold text-[#B86B1B]">
+                            預約代號：${item.bookingCode}
+                          </div>
+                        ` : ''}
+                        <div class="text-xs text-[var(--muted-foreground)]">${item.notes}</div>
+                        ${item.actionUrl ? `
+                          <div class="pt-1">
+                            <a href="${item.actionUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-[var(--primary)] font-semibold hover:underline">
+                              前往官方預約/確認網頁 ↗
+                            </a>
+                          </div>
+                        ` : ''}
                       </div>
-                    ` : ''}
-                    <div class="text-xs text-[var(--muted-foreground)]">${item.notes}</div>
-                    ${item.actionUrl ? `
-                      <div class="pt-1">
-                        <a href="${item.actionUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs text-[var(--primary)] font-semibold hover:underline">
-                          前往官方預約/確認網頁 ↗
-                        </a>
-                      </div>
-                    ` : ''}
+                    </div>
+
+                    <!-- Charter Overview Embedded Snippet (Entrance A) -->
+                    ${isCharterItem ? renderCharterChecklistOverviewSnippet() : ''}
                   </div>
-                </div>
-              `).join('')}
+                `;
+              }).join('')}
             </div>
           </div>
 
@@ -1626,7 +2089,7 @@
                     id="cb-pack-${idx}" 
                     data-key="pack-${idx}" 
                     onchange="handleChecklistChange(this)"
-                    class="checklist-checkbox mt-1 w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 cursor-pointer"
+                    class="checklist-checkbox mt-1 w-4 h-4 rounded text-[#4C7A58] focus:ring-[#4C7A58] cursor-pointer"
                   />
                   <div class="flex-1 space-y-0.5">
                     <div class="flex items-center justify-between gap-2">
@@ -1640,24 +2103,100 @@
             </div>
           </div>
 
+          <!-- Bottom Unified Save Button -->
+          <div class="text-center pt-2 pb-4">
+            <button onclick="saveAllChecklistAndCharterData(true)" class="touch-btn w-full sm:w-auto font-bold px-8 py-3 rounded-xl bg-[var(--primary)] text-[var(--primary-foreground)] shadow-md hover:brightness-95 inline-flex items-center justify-center gap-2 text-sm transition">
+              💾 儲存所有檢核與包車資料
+            </button>
+          </div>
+
         </div>
       `;
     }
 
-    // Checklist state handlers (Persist to LocalStorage)
+    // Entrance A: Render Charter Snippet inside checklist item
+    function renderCharterChecklistOverviewSnippet() {
+      const days = [
+        { key: 'day2', label: 'D2 北部 (12/18)', data: charterStore.day2 },
+        { key: 'day4', label: 'D4 南部 (12/20)', data: charterStore.day4 },
+        { key: 'day5', label: 'D5 中部 (12/21)', data: charterStore.day5 }
+      ];
+
+      let allImages = [];
+      days.forEach(d => {
+        if (d.data && d.data.images) {
+          d.data.images.forEach(img => allImages.push({ ...img, dayLabel: d.label }));
+        }
+      });
+
+      return `
+        <div class="mt-2 pt-2 border-t border-[var(--border)] bg-[var(--card)] p-3 rounded-xl space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-[var(--foreground)] flex items-center gap-1">
+              🚐 3 天 9 人座包車留存進度摘要：
+            </span>
+            <button onclick="openCharterModal('day2')" class="text-[11px] font-semibold text-[var(--primary)] hover:underline">
+              點此開啟完整表單 ↗
+            </button>
+          </div>
+
+          <!-- Days badges -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+            ${days.map(d => {
+              const hasDriver = d.data && (d.data.driverName || d.data.platform);
+              const imgCount = (d.data && d.data.images) ? d.data.images.length : 0;
+              return `
+                <div class="p-2 rounded-lg bg-[var(--content)] border border-[var(--border)] flex flex-col justify-between cursor-pointer hover:border-[var(--primary)] transition" onclick="openCharterModal('${d.key}')">
+                  <div class="flex items-center justify-between">
+                    <span class="font-bold text-[var(--foreground)]">${d.label}</span>
+                    <span class="text-[11px] font-mono ${imgCount > 0 ? 'text-[var(--primary)] font-bold' : 'text-[var(--muted-foreground)]'}">📸 ${imgCount}</span>
+                  </div>
+                  <div class="text-[11px] text-[var(--muted-foreground)] mt-1 truncate">
+                    ${hasDriver ? `${d.data.platform || '車行'} · ${d.data.driverName || '司機已派'}` : '尚未填寫司機'}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Screenshot thumbnails if present -->
+          ${allImages.length > 0 ? `
+            <div class="pt-1 flex items-center gap-2 overflow-x-auto no-scrollbar">
+              <span class="text-[11px] text-[var(--muted-foreground)] whitespace-nowrap">已存截圖：</span>
+              ${allImages.map(img => `
+                <img src="${img.dataUrl}" alt="${img.name}" onclick="openLightbox('${img.dataUrl}', '${img.dayLabel} - ${img.name}')" class="w-9 h-9 rounded-md object-cover border border-[var(--border)] cursor-pointer hover:opacity-80 transition flex-shrink-0" title="${img.dayLabel} 截圖，點擊放大" />
+              `).join('')}
+            </div>
+          ` : `
+            <div class="text-[11px] text-[var(--muted-foreground)] pt-0.5">
+              💡 提示：點擊上方「維護包車資訊＆截圖」可貼上預約訂單與司機聯絡截圖，支援手機相簿直接上傳！
+            </div>
+          `}
+        </div>
+      `;
+    }
+
+    // Checklist item change
     function handleChecklistChange(checkbox) {
       updateItemBoxStyle(checkbox);
-      saveChecklistStates();
+      
+      // Auto open charter modal when checking the charter item
+      if (checkbox.checked && checkbox.getAttribute('data-is-charter') === 'true') {
+        openCharterModal('day2');
+      }
+
+      saveChecklistStatesToLocal();
       updateChecklistProgress();
     }
 
     function updateItemBoxStyle(checkbox) {
       const box = checkbox.closest('.checklist-item');
       if (!box) return;
+      const textWrap = box.querySelector('.space-y-1') || box.querySelector('.space-y-0.5');
       if (checkbox.checked) {
-        box.classList.add('opacity-60', 'line-through');
+        if (textWrap) textWrap.classList.add('opacity-60', 'line-through');
       } else {
-        box.classList.remove('opacity-60', 'line-through');
+        if (textWrap) textWrap.classList.remove('opacity-60', 'line-through');
       }
     }
 
@@ -1673,7 +2212,7 @@
       if (barEl) barEl.style.width = percent + '%';
     }
 
-    function saveChecklistStates() {
+    function saveChecklistStatesToLocal() {
       try {
         const state = {};
         document.querySelectorAll('.checklist-checkbox').forEach(cb => {
@@ -1706,10 +2245,425 @@
         cb.checked = checked;
         updateItemBoxStyle(cb);
       });
-      saveChecklistStates();
+      saveChecklistStatesToLocal();
       updateChecklistProgress();
     }
+
+    // Explicit Save All Checklist and Charter Data Button Handler
+    async function saveAllChecklistAndCharterData(showSuccessToast = true) {
+      saveChecklistStatesToLocal();
+      
+      const now = new Date();
+      const timeStr = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+      checklistLastSavedAt = timeStr;
+      
+      try {
+        localStorage.setItem('okinawa_checklist_saved_at_2026', timeStr);
+        // Save text part of charter
+        const textOnly = JSON.parse(JSON.stringify(charterStore));
+        Object.keys(textOnly).forEach(k => { if (textOnly[k]) textOnly[k].images = []; });
+        localStorage.setItem('okinawa_charter_text_2026', JSON.stringify(textOnly));
+      } catch (e) {}
+
+      // Save full charter data with images to IndexedDB
+      await TravelDB.set('charter_data', charterStore);
+
+      const savedEl = document.getElementById('checklist-last-saved');
+      if (savedEl) {
+        savedEl.textContent = `最後儲存時間：${timeStr}`;
+      }
+
+      if (showSuccessToast) {
+        showToast(`✅ 已成功儲存！最後存檔時間：${timeStr}`);
+      }
+    }
+
+    // Export All Data as .json backup file
+    async function exportAllDataJson() {
+      await saveAllChecklistAndCharterData(false);
+
+      const checklistStates = JSON.parse(localStorage.getItem('okinawa_checklist_state_2026') || '{}');
+      const exportPayload = {
+        app: 'OkinawaTravelHandbook',
+        version: '2026.11',
+        exportedAt: new Date().toISOString(),
+        lastSavedAt: checklistLastSavedAt || new Date().toISOString(),
+        checklistStates: checklistStates,
+        charterData: charterStore
+      };
+
+      const jsonStr = JSON.stringify(exportPayload, null, 2);
+      const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const now = new Date();
+      const dateTag = `${now.getFullYear()}${String(now.getMonth()+1).padStart(2,'0')}${String(now.getDate()).padStart(2,'0')}`;
+
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `沖繩6日遊_包車與檢核備份_${dateTag}.json`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      showToast('📤 已成功匯出備份檔案！可傳至家人手機匯入。');
+    }
+
+    // Import .json backup file
+    function handleImportJson(input) {
+      const file = input.files && input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = async (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!data || (!data.charterData && !data.checklistStates)) {
+            showToast('匯入失敗：備份檔案格式不正確', 'error');
+            return;
+          }
+
+          if (confirm('確定要匯入此備份檔嗎？這將會更新目前的檢核進度與包車憑證。')) {
+            if (data.charterData) {
+              charterStore = { ...charterStore, ...data.charterData };
+              await TravelDB.set('charter_data', charterStore);
+            }
+            if (data.checklistStates) {
+              localStorage.setItem('okinawa_checklist_state_2026', JSON.stringify(data.checklistStates));
+            }
+            if (data.lastSavedAt) {
+              checklistLastSavedAt = data.lastSavedAt;
+              localStorage.setItem('okinawa_checklist_saved_at_2026', data.lastSavedAt);
+            }
+
+            renderCurrentTab();
+            showToast('✅ 成功匯入備份檔！包車與檢核資料已全部同步。');
+          }
+        } catch (err) {
+          showToast('匯入失敗：無法解析 JSON 檔案', 'error');
+        } finally {
+          input.value = '';
+        }
+      };
+      reader.readAsText(file, 'utf-8');
+    }
+
+    // ==========================================
+    // CHARTER MODAL MANAGEMENT
+    // ==========================================
+    function openCharterModal(dayKey = 'day2') {
+      currentCharterModalDay = dayKey;
+      const modal = document.getElementById('charter-modal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      switchCharterModalTab(dayKey);
+    }
+
+    function closeCharterModal(e) {
+      if (e.target.id === 'charter-modal') {
+        closeCharterModalDirect();
+      }
+    }
+
+    function closeCharterModalDirect() {
+      const modal = document.getElementById('charter-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchCharterModalTab(dayKey) {
+      currentCharterModalDay = dayKey;
+
+      // Update tab buttons style
+      document.querySelectorAll('.charter-modal-tab').forEach(b => {
+        b.className = "charter-modal-tab px-3 py-1.5 rounded-xl text-xs font-bold transition border border-[var(--border)] bg-[var(--content)] text-[var(--foreground)] hover:bg-[var(--secondary)]";
+      });
+      const activeTabBtn = document.getElementById('charter-tab-' + dayKey);
+      if (activeTabBtn) {
+        activeTabBtn.className = "charter-modal-tab px-3 py-1.5 rounded-xl text-xs font-bold transition bg-[var(--primary)] text-[var(--primary-foreground)] shadow-sm border border-transparent";
+      }
+
+      // Update Day Badge & Route description
+      const badge = document.getElementById('charter-current-day-badge');
+      const route = document.getElementById('charter-current-day-route');
+      if (dayKey === 'day2') {
+        if (badge) badge.textContent = 'Day 2 北部包車 (12/18 五)';
+        if (route) route.textContent = '萬座毛 ➔ 古宇利島 ➔ 美麗海水族館 ➔ 琉球的牛燒肉（約 9 小時）';
+      } else if (dayKey === 'day4') {
+        if (badge) badge.textContent = 'Day 4 南部包車 (12/20 日)';
+        if (route) route.textContent = '玉泉洞 ➔ 糸滿魚市場 ➔ DMM/iias ➔ 瀨長島夕陽（約 9 小時）';
+      } else if (dayKey === 'day5') {
+        if (badge) badge.textContent = 'Day 5 中部包車 (12/21 一)';
+        if (route) route.textContent = '兒童王國 ➔ PARCO CITY ➔ 美國村聖誕夕陽（約 10.5 小時）';
+      } else {
+        if (badge) badge.textContent = '市區交通／計程車備忘 (D1/D3/D6)';
+        if (route) route.textContent = '機場接駁、永旺來客夢返程、市區點對點雙計程車叫車備忘';
+      }
+
+      // Populate input values
+      const data = charterStore[dayKey] || {};
+      document.getElementById('charter-input-platform').value = data.platform || '';
+      document.getElementById('charter-input-orderId').value = data.orderId || '';
+      document.getElementById('charter-input-driverName').value = data.driverName || '';
+      document.getElementById('charter-input-driverContact').value = data.driverContact || '';
+      document.getElementById('charter-input-carInfo').value = data.carInfo || '';
+      document.getElementById('charter-input-meetingTime').value = data.meetingTime || '';
+      document.getElementById('charter-input-meetingPlace').value = data.meetingPlace || '';
+      document.getElementById('charter-input-notes').value = data.notes || '';
+
+      renderCharterImagesGrid();
+    }
+
+    // Render uploaded screenshots grid inside modal
+    function renderCharterImagesGrid() {
+      const data = charterStore[currentCharterModalDay] || {};
+      const images = data.images || [];
+      const grid = document.getElementById('charter-images-grid');
+      const countEl = document.getElementById('charter-image-count');
+      if (countEl) countEl.textContent = `（已存 ${images.length} 張截圖）`;
+
+      if (!grid) return;
+      if (images.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-4 text-center text-xs text-[var(--muted-foreground)]">
+            尚未新增任何截圖，可點擊上方按鈕選擇圖片，或直接按 Ctrl + V 貼上！
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = images.map((img, idx) => `
+        <div class="relative group rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--content)] shadow-sm">
+          <img src="${img.dataUrl}" alt="${img.name}" onclick="openLightbox('${img.dataUrl}', '${img.name}')" class="w-full h-24 sm:h-28 object-cover cursor-pointer hover:scale-105 transition duration-200" title="點擊放大" />
+          <div class="p-1.5 text-[11px] bg-[var(--card)] truncate text-[var(--foreground)]" title="${img.name}">
+            ${img.name}
+          </div>
+          <button onclick="deleteCharterImage(${idx})" class="absolute top-1 right-1 p-1 rounded-md bg-black/60 text-white hover:bg-red-600 transition" title="刪除此截圖">
+            🗑️
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Sync basic charter platform & driver info across Day 2, 4, 5
+    function syncCharterBasicInfoToAllDays() {
+      const current = charterStore[currentCharterModalDay] || {};
+      const platform = document.getElementById('charter-input-platform').value;
+      const driverName = document.getElementById('charter-input-driverName').value;
+      const driverContact = document.getElementById('charter-input-driverContact').value;
+      const carInfo = document.getElementById('charter-input-carInfo').value;
+
+      ['day2', 'day4', 'day5'].forEach(k => {
+        if (!charterStore[k]) charterStore[k] = {};
+        if (platform) charterStore[k].platform = platform;
+        if (driverName) charterStore[k].driverName = driverName;
+        if (driverContact) charterStore[k].driverContact = driverContact;
+        if (carInfo) charterStore[k].carInfo = carInfo;
+      });
+
+      showToast('📋 已同步車行平台、司機資訊與車牌至 D2、D4、D5！');
+    }
+
+    // Save modal data for current active modal tab
+    async function saveCurrentCharterModalData() {
+      const data = charterStore[currentCharterModalDay] || { images: [] };
+      data.platform = document.getElementById('charter-input-platform').value.trim();
+      data.orderId = document.getElementById('charter-input-orderId').value.trim();
+      data.driverName = document.getElementById('charter-input-driverName').value.trim();
+      data.driverContact = document.getElementById('charter-input-driverContact').value.trim();
+      data.carInfo = document.getElementById('charter-input-carInfo').value.trim();
+      data.meetingTime = document.getElementById('charter-input-meetingTime').value.trim();
+      data.meetingPlace = document.getElementById('charter-input-meetingPlace').value.trim();
+      data.notes = document.getElementById('charter-input-notes').value.trim();
+
+      charterStore[currentCharterModalDay] = data;
+
+      // Save to IndexedDB & LocalStorage
+      await saveAllChecklistAndCharterData(false);
+
+      // Re-render current page view to reflect updated summaries
+      renderCurrentTab();
+      showToast('✅ 包車資訊與截圖已成功儲存！');
+      closeCharterModalDirect();
+    }
+
+    // Image compression and adding to charterStore
+    async function compressAndAddImage(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+            const maxSide = 1400;
+
+            if (width > maxSide || height > maxSide) {
+              if (width > height) {
+                height = Math.round((height * maxSide) / width);
+                width = maxSide;
+              } else {
+                width = Math.round((width * maxSide) / height);
+                height = maxSide;
+              }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, width, height);
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+            const imgObj = {
+              id: 'img_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+              name: file.name || ('截圖_' + new Date().toLocaleTimeString().replace(/:/g, '') + '.jpg'),
+              dataUrl: compressedDataUrl,
+              size: Math.round(compressedDataUrl.length * 0.75),
+              createdAt: new Date().toISOString()
+            };
+
+            if (!charterStore[currentCharterModalDay]) {
+              charterStore[currentCharterModalDay] = { images: [] };
+            }
+            if (!charterStore[currentCharterModalDay].images) {
+              charterStore[currentCharterModalDay].images = [];
+            }
+            charterStore[currentCharterModalDay].images.push(imgObj);
+
+            resolve(imgObj);
+          };
+          img.onerror = () => resolve(null);
+          img.src = e.target.result;
+        };
+        reader.onerror = () => resolve(null);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // File input change handler
+    async function handleImageFileSelect(input) {
+      const files = input.files;
+      if (!files || files.length === 0) return;
+
+      showToast('⏳ 正在壓縮並上傳圖片...');
+      for (let i = 0; i < files.length; i++) {
+        await compressAndAddImage(files[i]);
+      }
+      renderCharterImagesGrid();
+      await saveAllChecklistAndCharterData(false);
+      showToast(`📸 成功上傳 ${files.length} 張截圖並自動儲存！`);
+      input.value = '';
+    }
+
+    // Delete image handler
+    async function deleteCharterImage(index) {
+      if (confirm('確定要刪除這張截圖嗎？')) {
+        const data = charterStore[currentCharterModalDay];
+        if (data && data.images) {
+          data.images.splice(index, 1);
+          renderCharterImagesGrid();
+          await saveAllChecklistAndCharterData(false);
+          showToast('🗑️ 截圖已刪除');
+        }
+      }
+    }
+
+    // Setup Clipboard Paste Listener for screenshots
+    function setupPasteListener() {
+      window.addEventListener('paste', async (e) => {
+        const modal = document.getElementById('charter-modal');
+        if (!modal || modal.classList.contains('hidden')) return;
+
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        let count = 0;
+        for (let item of items) {
+          if (item.type && item.type.indexOf('image') !== -1) {
+            e.preventDefault();
+            const file = item.getAsFile();
+            if (file) {
+              await compressAndAddImage(file);
+              count++;
+            }
+          }
+        }
+        if (count > 0) {
+          renderCharterImagesGrid();
+          await saveAllChecklistAndCharterData(false);
+          showToast(`📋 已從剪貼簿貼上 ${count} 張截圖並自動儲存！`);
+        }
+      });
+    }
+
+    // Setup Drag & Drop Listener
+    function setupDragDropListener() {
+      const dropZone = document.getElementById('charter-drop-zone');
+      if (!dropZone) return;
+
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          dropZone.classList.add('border-[var(--primary)]', 'bg-[var(--secondary)]');
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          dropZone.classList.remove('border-[var(--primary)]', 'bg-[var(--secondary)]');
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', async (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+          showToast('⏳ 正在壓縮並上傳拖曳圖片...');
+          for (let i = 0; i < files.length; i++) {
+            if (files[i].type.startsWith('image/')) {
+              await compressAndAddImage(files[i]);
+            }
+          }
+          renderCharterImagesGrid();
+          await saveAllChecklistAndCharterData(false);
+          showToast('📸 拖曳圖片已成功新增並儲存！');
+        }
+      });
+    }
+
+    // ==========================================
+    // LIGHTBOX VIEWER
+    // ==========================================
+    function openLightbox(src, caption = '') {
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const cap = document.getElementById('lightbox-caption');
+      if (!modal || !img) return;
+
+      img.src = src;
+      if (cap) cap.textContent = caption;
+      modal.classList.remove('hidden');
+    }
+
+    function closeLightbox(e) {
+      if (e.target.id === 'lightbox-modal') {
+        closeLightboxDirect();
+      }
+    }
+
+    function closeLightboxDirect() {
+      const modal = document.getElementById('lightbox-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Global Esc Key handler to close modals & lightbox
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightboxDirect();
+        closeCharterModalDirect();
+      }
+    });
   </script>
 </body>
 </html>
-
